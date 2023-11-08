@@ -1,0 +1,33 @@
+CREATE DATABASE ATIVIDADE_TRES;
+
+USE ATIVIDADE_TRES;
+
+CREATE TABLE Vendedores (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  NOME_VENDEDOR VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Clientes (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  NOME_CLIENTE VARCHAR(255) NOT NULL,
+  VENDEDOR_ID INT,
+  FOREIGN KEY (VENDEDOR_ID) REFERENCES Vendedores(ID)
+);
+
+INSERT INTO Vendedores (NOME_VENDEDOR) VALUES
+('Daniel'),
+('Gabriel'),
+('Carlos');
+
+INSERT INTO Clientes (NOME_CLIENTE, VENDEDOR_ID) VALUES
+('Jéssica', 1),
+('Kaua', 2),
+('Guilherme', 1),
+('Selena', 3);
+
+CREATE VIEW vw_relacionamento_cliente_vendedor AS
+SELECT c.NOME_CLIENTE, v.NOME_VENDEDOR
+FROM Clientes c
+JOIN Vendedores v ON c.VENDEDOR_ID = v.ID;
+
+SELECT * FROM vw_relacionamento_cliente_vendedor;
